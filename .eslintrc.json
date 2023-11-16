@@ -1,3 +1,27 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": [
+    "next/core-web-vitals",
+    "airbnb",
+    "airbnb-typescript"
+  ],
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "rules": {
+    "react/jsx-sort-props": [
+      2, {
+        "ignoreCase": true
+      }
+    ],
+    "react/sort-comp": [2],
+    "react/prop-types": "off",
+    "react/require-default-props": "off",
+    "sort-vars": ["error"],
+    "linebreak-style": ["error", "windows"],
+    "import/no-extraneous-dependencies": "off",
+    "jsx-a11y/click-events-have-key-events": "off",
+    "jsx-a11y/no-static-element-interactions": "off",
+    "react/jsx-props-no-spreading": "off"
+    
+  }
 }
