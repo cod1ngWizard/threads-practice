@@ -35,8 +35,13 @@ function ThreadCard({
   comments,
   isComment,
 }: Props) {
+  // console.log(author, 'author');
   return (
-    <article className='flex flex-col w-full rounded-xl bg-dark-2 p-7'>
+    <article
+      className={`flex flex-col w-full rounded- ${
+        isComment ? 'px-0 xs:px-7 mt-10' : 'bg-dark-2 p-7 mt-10 rounded'
+      }`}
+    >
       <div className='flex items-start justify-between'>
         <div className='flex flex-row flex-1 w-full gap-4'>
           <div className='flex flex-col items-center'>
@@ -69,7 +74,38 @@ function ThreadCard({
                   height={24}
                   className='object-contain cursor-pointer'
                 />
+                <Link href={`/thread/${id}`}>
+                  <Image
+                    src='/assets/reply.svg'
+                    alt='reply'
+                    width={24}
+                    height={24}
+                    className='object-contain cursor-pointer'
+                  />
+                </Link>
+                <Image
+                  src='/assets/repost.svg'
+                  alt='repost'
+                  width={24}
+                  height={24}
+                  className='object-contain cursor-pointer'
+                />
+                <Image
+                  src='/assets/share.svg'
+                  alt='share'
+                  width={24}
+                  height={24}
+                  className='object-contain cursor-pointer'
+                />
               </div>
+
+              {isComment && comments?.length > 0 && (
+                <Link href={`/thread/${id}`}>
+                  <p className='mt-1 text-subtle-medium text-gray-1'>
+                    {comments.length} replies
+                  </p>
+                </Link>
+              )}
             </div>
           </div>
         </div>
