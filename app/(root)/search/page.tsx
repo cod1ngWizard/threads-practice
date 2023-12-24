@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import { fetchUser, fetchUsers } from '@/lib/actions/user.actions';
 import { currentUser } from '@clerk/nextjs';
 import { redirect } from 'next/navigation';
