@@ -64,13 +64,15 @@ export async function createThread({
   try {
     connectToDB();
 
-    console.log(communityId, 'this is the communityId');
-    //const communityIdObject = new mongoose.Types.ObjectId(communityId);
+    const communityIdObject = await Community.findOne(
+      { id: communityId },
+      { _id: 1 }
+    );
 
     const createdThread = await Thread.create({
       text,
       author,
-      community: communityId, // Assign communityId if provided, or leave it null for personal account
+      community: communityIdObject, // Assign communityId if provided, or leave it null for personal account
     });
 
     // Update User model
@@ -78,12 +80,12 @@ export async function createThread({
       $push: { threads: createdThread._id },
     });
 
-    /*  if (communityIdObject) {
+    if (communityIdObject) {
       // Update Community model
       await Community.findByIdAndUpdate(communityIdObject, {
         $push: { threads: createdThread._id },
       });
-    } */
+    }
 
     revalidatePath(path);
   } catch (error: any) {
