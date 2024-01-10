@@ -13,7 +13,6 @@ async function ThreadsTab({ currentUserId, accountId, accountType }: Props) {
   let result: any;
   if (accountType === 'Community') {
     result = await fetchCommunityPosts(accountId);
-    console.log(result, 'result');
   } else {
     result = await fetchUserPosts(accountId);
   }
