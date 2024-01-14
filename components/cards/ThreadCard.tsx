@@ -41,7 +41,7 @@ function ThreadCard({
   likedBy,
 }: Props) {
   const liked = likedBy?.find(
-    (id: any) => String(currentUserId) === String(currentUserId)
+    (id: any) => String(id) === String(currentUserId)
   );
 
   const likes = likedBy?.length;
