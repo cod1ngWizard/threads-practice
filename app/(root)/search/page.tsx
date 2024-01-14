@@ -2,8 +2,15 @@ import { fetchUser, fetchUsers } from '@/lib/actions/user.actions';
 import { currentUser } from '@clerk/nextjs';
 import { redirect } from 'next/navigation';
 import UserCard from '@/components/cards/UserCard';
+import SearchBar from './SearchBar';
 
-async function Page() {
+async function Page({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | undefined };
+}) {
+  const searchString = searchParams.searchString;
+
   const user = await currentUser(); //CLERK INFO
 
   if (!user) return null;
@@ -16,7 +23,7 @@ async function Page() {
   //fetch users
   const result = await fetchUsers({
     userId: user.id,
-    searchString: '',
+    searchString: searchString as string,
     pageNumber: 1,
     pageSize: 25,
   });
@@ -24,9 +31,8 @@ async function Page() {
   return (
     <section>
       <h1 className='mb-10 head-text'>Search</h1>
-
       {/* Search bar */}
-
+      <SearchBar />
       <div className='flex flex-col mt-14 gap-9'>
         {result.users.length === 0 ? (
           <p className='no-result'>No results</p>

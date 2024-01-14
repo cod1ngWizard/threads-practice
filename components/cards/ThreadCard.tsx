@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { formatDateString } from '@/lib/utils';
+import LikeButton from '../shared/LikeButton';
 
 type Props = {
   id: string;
@@ -24,6 +25,7 @@ type Props = {
     };
   }[];
   isComment?: boolean;
+  likedBy?: string[];
 };
 
 function ThreadCard({
@@ -36,11 +38,19 @@ function ThreadCard({
   createdAt,
   comments,
   isComment,
+  likedBy,
 }: Props) {
+  const liked = likedBy?.find(
+    (id: any) => String(currentUserId) === String(currentUserId)
+  );
+
+  const likes = likedBy?.length;
+  const replies = comments?.length;
+
   return (
     <article
       className={`flex flex-col w-full rounded- ${
-        isComment ? 'px-0 xs:px-7 mt-10' : 'bg-dark-2 p-7 mt-10 rounded'
+        isComment ? 'px-0 xs:px-7 mt-10' : 'bg-dark-2 p-7 mt-5 rounded'
       }`}
     >
       <div className='flex items-start justify-between'>
@@ -68,12 +78,11 @@ function ThreadCard({
 
             <div className='flex flex-col gap-3 mt-5'>
               <div className='flex gap-3.5'>
-                <Image
-                  src='/assets/heart-gray.svg'
-                  alt='heart'
-                  width={24}
-                  height={24}
-                  className='object-contain cursor-pointer'
+                <LikeButton
+                  userId={String(currentUserId)}
+                  threadId={String(id)}
+                  path={''}
+                  liked={!!liked}
                 />
                 <Link href={`/thread/${id}`}>
                   <Image
@@ -128,6 +137,9 @@ function ThreadCard({
           />
         </Link>
       )}
+      {likes && likes > 0 ? (
+        <p className='mt-1 text-subtle-medium text-gray-1'>{likes} like(s)</p>
+      ) : null}
     </article>
   );
 }

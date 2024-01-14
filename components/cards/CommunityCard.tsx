@@ -18,12 +18,12 @@ function CommunityCard({ id, name, username, imgUrl, bio, members }: Props) {
   return (
     <article className='community-card'>
       <div className='flex flex-wrap items-center gap-3'>
-        <Link href={`/communities/${id}`} className='relative h-12 w-12'>
+        <Link href={`/communities/${id}`} className='relative w-12 h-12'>
           <Image
             src={imgUrl}
             alt='community_logo'
             fill
-            className='rounded-full object-cover'
+            className='object-cover rounded-full'
           />
         </Link>
 
@@ -37,7 +37,7 @@ function CommunityCard({ id, name, username, imgUrl, bio, members }: Props) {
 
       <p className='mt-4 text-subtle-medium text-gray-1'>{bio}</p>
 
-      <div className='mt-5 flex flex-wrap items-center justify-between gap-3'>
+      <div className='flex flex-wrap items-center justify-between gap-3 mt-5'>
         <Link href={`/communities/${id}`}>
           <Button size='sm' className='community-card_btn'>
             View

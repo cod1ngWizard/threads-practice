@@ -242,3 +242,39 @@ export async function addCommentToThread(
     throw new Error('Unable to add comment');
   }
 }
+
+export async function addLikeToThread(
+  threadId: string,
+  userId: string,
+  path?: string,
+  liked?: boolean
+) {
+  connectToDB();
+
+  try {
+    // Find the original thread by its ID
+    const originalThread = await Thread.findById(threadId);
+
+    if (!originalThread) {
+      throw new Error('Thread not found');
+    }
+
+    if (liked) {
+      console.log('gets to liked block');
+      const likeIndex = originalThread.likedBy.indexOf(userId);
+      if (likeIndex !== -1) {
+        originalThread.likedBy.splice(likeIndex, 1);
+      }
+    } else {
+      originalThread.likedBy.push(userId);
+    }
+
+    await originalThread.save();
+    if (path) {
+      revalidatePath(path);
+    }
+  } catch (error) {
+    console.error('Error while adding a like:', error);
+    throw new Error('Unable to add like');
+  }
+}

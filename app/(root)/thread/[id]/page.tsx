@@ -17,8 +17,6 @@ async function Page({ params }: { params: { id: string } }) {
   }
 
   const threadInfo = await fetchThreadById(params.id);
-  console.log(threadInfo.children, 'threadInfo');
-
   return (
     <section className='relative'>
       <div>
@@ -32,6 +30,7 @@ async function Page({ params }: { params: { id: string } }) {
           community={threadInfo.community}
           createdAt={threadInfo.createdAt}
           comments={threadInfo.children}
+          likedBy={threadInfo.likedBy}
         />
       </div>
 
@@ -55,6 +54,7 @@ async function Page({ params }: { params: { id: string } }) {
             createdAt={comment.createdAt}
             comments={comment.children}
             isComment
+            likedBy={comment.likedBy}
           />
         ))}
       </div>
